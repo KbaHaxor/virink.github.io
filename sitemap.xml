@@ -2,10 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>http://www.virzz.com/index.html</loc>
-<lastmod>2016-10+29T16:19:22+08:00</lastmod>
+<lastmod>2016-10+29T16:32:01+08:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>1.0</priority>
 </url>
+<url><loc>http://www.virzz.com/2016/10/29/build_centos_6_8_with_oracle_uek_for_dtrace_and_php.html</loc></url>
 <url><loc>http://www.virzz.com/2016/10/29/take_a_log_for_developing_php_ext_by_vs2012.html</loc></url>
 <url><loc>http://www.virzz.com/2016/10/17/build_my_leanote_server.html</loc></url>
 <url><loc>http://www.virzz.com/2016/09/14/how_to_make_my_blog.html</loc></url>
