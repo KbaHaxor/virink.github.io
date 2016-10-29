@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title> Leanote環境搭建 - Virink's Blog </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="Virink">
+    <meta name="keyword" content="virink audit php python docker hacker bug exp vuls">
+    <meta name="description" content="This is a blog that I was recorded some personal journals and some articles, it maybe can help you in some way.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Leanote環境搭建 - Virink's Blog">
+    <meta property="og:url" content="http://www.virzz.com/2016/10/17/build_my_leanote_server/index.html">
+    <meta property="og:site_name" content="Virink's Blog">
+    <meta property="og:description" content="This is a blog that I was recorded some personal journals and some articles, it maybe can help you in some way.">
+    <meta property="og:updated_time" content="2016-10+29T16:19:22+08:00">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Leanote環境搭建 - Virink's Blog">
+    <meta name="twitter:description" content="This is a blog that I was recorded some personal journals and some articles, it maybe can help you in some way.">
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="icon" href="/static/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/static/css/uno.css">
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <span class="mobile btn-mobile-menu">
+        <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+    </span>
+    <header class="panel-cover">
+        <div class="panel-main">
+            <div class="panel-main__inner panel-inverted">
+                <div class="panel-main__content">
+                    <a href="/" title="link to homepage for Virink's Blog">
+                        <img src="/static/img/avatar.png" width="80" alt="Virink's Blog logo" class="panel-cover__logo logo" />
+                    </a>
+                    <h1 class="panel-cover__title panel-title">
+                        <a href="/" title="link to homepage"> Virink </a>
+                    </h1>
+                    <hr class="panel-cover__divider" />
+                    <p class="panel-cover__description">A boring and silly single dog, who can't do anything except zhuangbi.</p>
+                    <div id="tagscloud" class="panel-cover__divider">
+                        <a href="/tags/audit" class="tagc1">Audit</a><a href="/tags/web" class="tagc2">Web</a><a href="/tags/writeups" class="tagc3">Writeups</a><a href="/tags/python" class="tagc4">Python</a><a href="/tags/vuls" class="tagc5">Vuls</a><a href="/tags/thinking" class="tagc1">Thinking</a><a href="/tags/ctf" class="tagc2">CTF</a><a href="/tags/other" class="tagc3">Other</a><a href="/tags/flask" class="tagc4">Flask</a><a href="/tags/go" class="tagc5">Golang</a><a href="/tags/docker" class="tagc1">Docker</a><a href="/tags/php" class="tagc2">PHP</a><a href="/tags/tools" class="tagc3">Tools</a>
+                    </div>
+                    <div class="navigation-wrapper">
+                        <nav class="cover-navigation cover-navigation--primary">
+                            <ul class="navigation">
+                                <li class="navigation__item"> <a href="/#blog" title="" class="blog-button"> Blog </a></li>
+                                <li class="navigation__item"> <a href="/about" title="" class=""> About</a></li>
+                                <li class="navigation__item"> <a href="/links" title="" class=""> Links </a></li>
+                            </ul>
+                        </nav>
+                        <hr class="panel-cover__divider" />
+                        <nav class="cover-navigation navigation--social">
+                            <ul class="navigation">
+                                <!-- Github -->
+                                <li class="navigation__item">
+                                    <a href="https://github.com/virink" target="_blank">
+                                        <i class='fa fa-github' aria-hidden="true"></i>
+                                        <span class="label"> GitHub </span>
+                                    </a>
+                                </li>
+                                <!-- Twitter -->
+                                <li class="navigation__item">
+                                    <a href="https://twitter.com/virinkz" target="_blank">
+                                        <i class='fa fa-twitter' aria-hidden="true"></i>
+                                        <span class="label"> Twitter </span>
+                                    </a>
+                                </li>
+                                <!-- Twitter -->
+                                <li class="navigation__item">
+                                    <a href="https://telegram.me/virink" target="_blank">
+                                        <i class='fa fa-paper-plane' aria-hidden="true"></i>
+                                        <span class="label"> Telegram </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-cover--overlay"> </div>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            <article class="post-container post-container--single">
+                <header class="post-header">
+                    <div class="post-meta">
+                        <time datetime="2016-10-17 11:14:18" class="post-meta__date date">2016-10-17 11:14:18</time> &#8226;
+                        <span class="post-meta__tags tags">
+                    <font class="categories"></font>
+                    <font class="tags">
+                      <a class="tags-link" href="/tags/web/">Web</a> , <a class="tags-link" href="/tags/tools/">Tools</a> , <a class="tags-link" href="/tags/thinking/">Thinking</a> , <a class="tags-link" href="/tags/go/">Golang</a>
+                    </font>
+                  </span>
+                    </div>
+                    <h1 class="post-title"> Leanote環境搭建 </h1>
+                </header>
+                <section class="post">
+                    <h2>Install Golang and revel</h2>
+<h3>下載安裝Golang</h3>
+<pre><code>cd /tmp
+//到官網下載
+tar -C /usr/local -xzf go*.tar.gz
+</code></pre>
+<h3>設置環境變量</h3>
+<pre><code>cat &gt;&gt; ~/.profile &lt;&lt;EOF
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/gocode
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+EOF
+
+source ~/.profile
+</code></pre>
+<h3>Install revel &amp; leanote</h3>
+<pre><code>go get github.com/revel/cmd/revel
+go get github.com/leanote/leanote/app
+</code></pre>
+<h2>安裝Mongdo</h2>
+<pre><code>sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+</code></pre>
+<h3>設置環境變量(可有可無)</h3>
+<pre><code>cat &gt;&gt; ~/.profile &lt;&lt;EOF
+export MONGOPATH=/usr/bin
+export PATH=$PATH:$MONGOPATH
+EOF
+
+source ~/.profile
+</code></pre>
+<h3>新建一个目录data存放mongodb数据:</h3>
+<pre><code>mkdir /path/data
+</code></pre>
+<h3>用以下命令启动mongod:</h3>
+<pre><code>mongod --dbpath /path/data
+</code></pre>
+<p>这时mongod已经启动，重新打开一个终端, 键入mongo进入交互程序：</p>
+<pre><code>$&gt; mongo
+&gt; show dbs
+...数据库列表
+</code></pre>
+<p>mongodb安装到此为止</p>
+<h2>安裝Leanote</h2>
+<p><strong>请务必修改app.secret一项, 在若干个随机位置处，将字符修改成一个其他的值, 否则会有安全隐患!</strong></p>
+<h3>修改配置</h3>
+<pre><code>$GOPATH/src/github.com/leanote/leanote/conf/app.conf
+</code></pre>
+<h3>導入初始數據</h3>
+<pre><code>mongorestore -h localhost -d leanote --directoryperdb ~/gocode/src/github.com/leanote/leanote/mongodb_backup/leanote_install_data
+</code></pre>
+<h3>运行leanote</h3>
+<p><strong>注意: 在此之前请确保mongodb已在运行!</strong></p>
+<p>新开一个窗口, 运行:</p>
+<pre><code>$&gt; revel run github.com/leanote/leanote
+</code></pre>
+<p>恭喜你, 打开浏览器输入: http://localhost:9000 体验leanote吧!</p>
+<h2>啟動管理</h2>
+<pre><code>apt-get install supervisor
+</code></pre>
+<h3>創建配置文件</h3>
+<p>/etc/supervisor/conf.d/<strong>{filename}</strong>.conf</p>
+<p><strong>mongodb.conf</strong></p>
+<pre><code>[program:mongodb]
+command=/usr/bin/mongod --dbpath /path/data
+autorestart=true
+user=root
+</code></pre>
+<p><strong>leanote.conf</strong></p>
+<pre><code>[program:leanote]
+command=revel run github.com/leanote/leanote
+user=root
+autorestart=true
+</code></pre>
+<h3>運行</h3>
+<pre><code>supervisord -c /etc/supervisor/supervisor.conf
+</code></pre>
+                </section>
+                <section class="post-comments">
+                    <div class="ds-thread" data-thread-key="2016/10/17/build_my_leanote_server/index.html" data-title="Leanote環境搭建" data-url="http://www.virzz.com/2016/10/17/build_my_leanote_server/index.html"></div>
+                    <script type="text/javascript">
+                        var duoshuoQuery = {short_name:"virink"};
+                        (function() {
+                            var ds = document.createElement('script');
+                            ds.type = 'text/javascript';ds.async = true;
+                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                            ds.charset = 'UTF-8';
+                            (document.getElementsByTagName('head')[0] 
+                             || document.getElementsByTagName('body')[0]).appendChild(ds);
+                        })();
+                    </script>
+                </section>
+            </article>
+            <footer class="footer">
+                <span class="footer__copyright">&copy; 2016-2017 | ❤ <a href="mailto:virink@outlook.com"> Virink </a></span>
+            </footer>
+        </div>
+    </div>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript">
+    jQuery.browser = {};
+        (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0;
+            if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true;
+                jQuery.browser.version = RegExp.$1;
+            }
+        })();
+    </script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/tagcloud.js"></script>
+    <script src="/static/js/scale.fix.js"></script>
+    <script src="/static/js/jquery.imagesloaded.min.js"></script>
+    <script src="/static/js/gallery.js"></script>
+    <script src="/static/js/jquery.githubRepoWidget.min.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} });
+    </script>
+    <!--kill ie6 -->
+    <!--[if IE 6]>
+      <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+    <![endif]-->
+    <!-- analytics -->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cc5bfd8791cd2c8a318145b9213ed80f";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    <!-- totop -->
+    <div id="totop" style="position:fixed;bottom:50px;right:30px;cursor: pointer;">
+        <a title="back to top"><img style="width:30px;height:30px;" src="/static/img/totop.png" /></a>
+    </div>
+    <script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+    <!-- fancybox -->
+    <link rel="stylesheet" href="/static/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+    <script src="/static/fancybox/jquery.fancybox.pack.js"></script>
+    <script type="text/javascript">
+    (function($) {
+        $('.fancybox').fancybox();
+    })(jQuery);
+    </script>
+
+</html>

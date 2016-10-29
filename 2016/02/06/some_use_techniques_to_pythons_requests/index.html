@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title> python的requests一些使用技巧 - Virink's Blog </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="Virink">
+    <meta name="keyword" content="virink audit php python docker hacker bug exp vuls">
+    <meta name="description" content="This is a blog that I was recorded some personal journals and some articles, it maybe can help you in some way.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="python的requests一些使用技巧 - Virink's Blog">
+    <meta property="og:url" content="http://www.virzz.com/2016/02/06/some_use_techniques_to_pythons_requests/index.html">
+    <meta property="og:site_name" content="Virink's Blog">
+    <meta property="og:description" content="This is a blog that I was recorded some personal journals and some articles, it maybe can help you in some way.">
+    <meta property="og:updated_time" content="2016-10+29T16:19:22+08:00">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="python的requests一些使用技巧 - Virink's Blog">
+    <meta name="twitter:description" content="This is a blog that I was recorded some personal journals and some articles, it maybe can help you in some way.">
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="icon" href="/static/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/static/css/uno.css">
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <span class="mobile btn-mobile-menu">
+        <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+    </span>
+    <header class="panel-cover">
+        <div class="panel-main">
+            <div class="panel-main__inner panel-inverted">
+                <div class="panel-main__content">
+                    <a href="/" title="link to homepage for Virink's Blog">
+                        <img src="/static/img/avatar.png" width="80" alt="Virink's Blog logo" class="panel-cover__logo logo" />
+                    </a>
+                    <h1 class="panel-cover__title panel-title">
+                        <a href="/" title="link to homepage"> Virink </a>
+                    </h1>
+                    <hr class="panel-cover__divider" />
+                    <p class="panel-cover__description">A boring and silly single dog, who can't do anything except zhuangbi.</p>
+                    <div id="tagscloud" class="panel-cover__divider">
+                        <a href="/tags/audit" class="tagc1">Audit</a><a href="/tags/web" class="tagc2">Web</a><a href="/tags/writeups" class="tagc3">Writeups</a><a href="/tags/python" class="tagc4">Python</a><a href="/tags/vuls" class="tagc5">Vuls</a><a href="/tags/thinking" class="tagc1">Thinking</a><a href="/tags/ctf" class="tagc2">CTF</a><a href="/tags/other" class="tagc3">Other</a><a href="/tags/flask" class="tagc4">Flask</a><a href="/tags/go" class="tagc5">Golang</a><a href="/tags/docker" class="tagc1">Docker</a><a href="/tags/php" class="tagc2">PHP</a><a href="/tags/tools" class="tagc3">Tools</a>
+                    </div>
+                    <div class="navigation-wrapper">
+                        <nav class="cover-navigation cover-navigation--primary">
+                            <ul class="navigation">
+                                <li class="navigation__item"> <a href="/#blog" title="" class="blog-button"> Blog </a></li>
+                                <li class="navigation__item"> <a href="/about" title="" class=""> About</a></li>
+                                <li class="navigation__item"> <a href="/links" title="" class=""> Links </a></li>
+                            </ul>
+                        </nav>
+                        <hr class="panel-cover__divider" />
+                        <nav class="cover-navigation navigation--social">
+                            <ul class="navigation">
+                                <!-- Github -->
+                                <li class="navigation__item">
+                                    <a href="https://github.com/virink" target="_blank">
+                                        <i class='fa fa-github' aria-hidden="true"></i>
+                                        <span class="label"> GitHub </span>
+                                    </a>
+                                </li>
+                                <!-- Twitter -->
+                                <li class="navigation__item">
+                                    <a href="https://twitter.com/virinkz" target="_blank">
+                                        <i class='fa fa-twitter' aria-hidden="true"></i>
+                                        <span class="label"> Twitter </span>
+                                    </a>
+                                </li>
+                                <!-- Twitter -->
+                                <li class="navigation__item">
+                                    <a href="https://telegram.me/virink" target="_blank">
+                                        <i class='fa fa-paper-plane' aria-hidden="true"></i>
+                                        <span class="label"> Telegram </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-cover--overlay"> </div>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            <article class="post-container post-container--single">
+                <header class="post-header">
+                    <div class="post-meta">
+                        <time datetime="2016-02-06 23:05:36" class="post-meta__date date">2016-02-06 23:05:36</time> &#8226;
+                        <span class="post-meta__tags tags">
+                    <font class="categories"></font>
+                    <font class="tags">
+                      <a class="tags-link" href="/tags/python/">Python</a>
+                    </font>
+                  </span>
+                    </div>
+                    <h1 class="post-title"> python的requests一些使用技巧 </h1>
+                </header>
+                <section class="post">
+                    <p>最近用到不少requests库，发现确实很牛逼，urllib，urllib2都是渣渣。。鉴于本人记性不好，简单做一个MARK给自己、、、</p>
+<h2>安装</h2>
+<p><a href="http://cn.python-requests.org/en/latest/user/install.html#install" title="install">install</a></p>
+<h2>发送无参数的get请求</h2>
+<pre><code>&gt;&gt;&gt; r = requests.get('http://www.isecer.com/')
+&gt;&gt;&gt; print r.text
+{
+  "args": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Connection": "close", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.3.0 CPython/2.6.6 Windows/7", 
+    "X-Request-Id": "8a28bbea-55cd-460b-bda3-f3427d66b700"
+  }, 
+  "origin": "124.192.129.84", 
+  "url": "http://httpbin.org/get"
+}
+</code></pre>
+<h2>发送带参数的get请求</h2>
+<p>将key与value放入一个字典中，通过params参数来传递,其作用相当于urllib.urlencode</p>
+<pre><code>&gt;&gt;&gt; import requests
+&gt;&gt;&gt; pqyload = {'q':'杨彦星'}
+&gt;&gt;&gt; r = requests.get('http://www.baidu.com/s',params = payload)
+&gt;&gt;&gt; r.url
+u'http://www.so.com/s?q=%E6%9D%A8%E5%BD%A6%E6%98%9F'
+</code></pre>
+<h2>发送post请求</h2>
+<p>通过data参数来传递</p>
+<pre><code>&gt;&gt;&gt; payload = {'s':'isecer'}
+&gt;&gt;&gt; r = requests.post("http://www.isecer.com/", data=payload)
+&gt;&gt;&gt; print r.text
+{
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {
+    "s": "isecer", 
+  }, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Connection": "close", 
+    "Content-Length": "19", 
+    "Content-Type": "application/x-www-form-urlencoded", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.3.0 CPython/2.6.6 Windows/7", 
+  }, 
+  "json": null, 
+  "url": "http://www.isecer.com/"
+}
+&gt;&gt;&gt;
+</code></pre>
+<p>可以看到，post参数已经传到了form里,data不光可以接受字典类型的数据，还可以接受json等格式</p>
+<pre><code>&gt;&gt;&gt; payload = {'s':'isecer'}
+&gt;&gt;&gt; import json
+&gt;&gt;&gt; r = requests.post('http://www.isecer.com/', data=json.dumps(payload))
+</code></pre>
+<h2>发送文件的post类型</h2>
+<p>这个相当于向网站上传一张图片，文档等操作，这时要使用files参数</p>
+<pre><code>&gt;&gt;&gt; url = 'http://www.isecer.com/'
+&gt;&gt;&gt; files = {'file': open('test.png', 'rb')}
+&gt;&gt;&gt; r = requests.post(url, files=files)
+</code></pre>
+<p><strong>定制headers，使用headers参数来传递</strong></p>
+<pre><code>&gt;&gt;&gt; import json
+&gt;&gt;&gt; url = 'https://api.github.com/some/endpoint'
+&gt;&gt;&gt; payload = {'some': 'data'}
+&gt;&gt;&gt; headers = {'content-type': 'application/json'}
+&gt;&gt;&gt; r = requests.post(url, data=json.dumps(payload), headers=headers)
+</code></pre>
+<h2>响应内容</h2>
+<h3>响应状态码</h3>
+<pre><code>r = requests.get('http://www.isecer.com/')
+
+print r.status_code
+</code></pre>
+<h3>响应头</h3>
+<pre><code>&gt;&gt;&gt; print r.headers
+{'content-length': '519', 'server': 'gunicorn/18.0', 'connection': 'keep-alive', 'date': 'Sun, 15 Jun 2014 14:19:52 GMT', 'access-control-allow-origin': '*', 'content-type': 'application/json'}
+</code></pre>
+<p>也可以取到这个个别的响应头用来做一些判断，这里的参数是不区分大小写的</p>
+<pre><code>r.headers['Content-Type']
+
+r.headers.get('Content-Type')
+</code></pre>
+<h3>响应内容</h3>
+<pre><code>r.text
+
+r.content
+</code></pre>
+<h2>获取响应中的cookies</h2>
+<pre><code>&gt;&gt;&gt; r = requests.get('http://www.baidu.com')
+&gt;&gt;&gt; r.cookies['BAIDUID']
+'D5810267346AEFB0F25CB0D6D0E043E6:FG=1'
+</code></pre>
+<p>也可以自已定义请求的COOKIES</p>
+<pre><code>&gt;&gt;&gt; url = 'http://www.isecer.com/'
+&gt;&gt;&gt; cookies = {'cookies_are':'isecer'}
+&gt;&gt;&gt; r = requests.get(url,cookies = cookies)
+&gt;&gt;&gt; 
+&gt;&gt;&gt; print r.text
+{
+  "cookies": {
+    "cookies_are": "isecer"
+  }
+}
+&gt;&gt;&gt;
+</code></pre>
+<p>cookies还有很多...</p>
+<h2>使用timeout参数设置超时时间</h2>
+<pre><code>&gt;&gt;&gt; requests.get('http://github.com', timeout=1)
+&lt;Response [200]&gt;
+</code></pre>
+<p>如果将时间设置成非常小的数，如requests.get('http://github.com', timeout=0.001)，那么如果在timeout的时间内没有连接，那么将会抛出一个Timeout的异常</p>
+<h2>访问中使用session</h2>
+<p>先初始化一个session对象</p>
+<pre><code>s = requests.Session()
+</code></pre>
+<p>然后使用这个session对象来进行访问</p>
+<pre><code>r = s.post(url,data = user)
+</code></pre>
+                </section>
+                <section class="post-comments">
+                    <div class="ds-thread" data-thread-key="2016/02/06/some_use_techniques_to_pythons_requests/index.html" data-title="python的requests一些使用技巧" data-url="http://www.virzz.com/2016/02/06/some_use_techniques_to_pythons_requests/index.html"></div>
+                    <script type="text/javascript">
+                        var duoshuoQuery = {short_name:"virink"};
+                        (function() {
+                            var ds = document.createElement('script');
+                            ds.type = 'text/javascript';ds.async = true;
+                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                            ds.charset = 'UTF-8';
+                            (document.getElementsByTagName('head')[0] 
+                             || document.getElementsByTagName('body')[0]).appendChild(ds);
+                        })();
+                    </script>
+                </section>
+            </article>
+            <footer class="footer">
+                <span class="footer__copyright">&copy; 2016-2017 | ❤ <a href="mailto:virink@outlook.com"> Virink </a></span>
+            </footer>
+        </div>
+    </div>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript">
+    jQuery.browser = {};
+        (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0;
+            if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true;
+                jQuery.browser.version = RegExp.$1;
+            }
+        })();
+    </script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/tagcloud.js"></script>
+    <script src="/static/js/scale.fix.js"></script>
+    <script src="/static/js/jquery.imagesloaded.min.js"></script>
+    <script src="/static/js/gallery.js"></script>
+    <script src="/static/js/jquery.githubRepoWidget.min.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} });
+    </script>
+    <!--kill ie6 -->
+    <!--[if IE 6]>
+      <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+    <![endif]-->
+    <!-- analytics -->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cc5bfd8791cd2c8a318145b9213ed80f";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    <!-- totop -->
+    <div id="totop" style="position:fixed;bottom:50px;right:30px;cursor: pointer;">
+        <a title="back to top"><img style="width:30px;height:30px;" src="/static/img/totop.png" /></a>
+    </div>
+    <script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+    <!-- fancybox -->
+    <link rel="stylesheet" href="/static/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+    <script src="/static/fancybox/jquery.fancybox.pack.js"></script>
+    <script type="text/javascript">
+    (function($) {
+        $('.fancybox').fancybox();
+    })(jQuery);
+    </script>
+
+</html>

